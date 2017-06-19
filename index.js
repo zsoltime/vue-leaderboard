@@ -1,4 +1,4 @@
-const dataset = 'https://fcctop00.herokuapp.com/api/fccusers/top/recent';
+const dataset = 'https://fcctop100.herokuapp.com/api/fccusers/top/recent';
 
 function fetchData(url) {
   return fetch(url)
@@ -21,18 +21,27 @@ Vue.component('sort-button', {
       type: String,
       default: '#ccc',
     },
+    classNames: {
+      type: Object,
+      default: () => ({
+        sort: true,
+      }),
+    }
   },
   template: '\
-    <svg \
-      xmlns="http://www.w3.org/2000/svg" \
-      xmlns:xlink="http://www.w3.org/1999/xlink" \
-      version="1.1" \
-      :width="size" \
-      :height="size" \
-      viewBox="0 0 16 16">\
-        <path :fill="color" d="M11 7h-6l3-4z" />\
-        <path :fill="color" d="M5 9h6l-3 4z" />\
-    </svg>',
+    <button :class="classNames"> \
+      <slot></slot> \
+      <svg \
+        xmlns="http://www.w3.org/2000/svg" \
+        xmlns:xlink="http://www.w3.org/1999/xlink" \
+        version="1.1" \
+        :width="size" \
+        :height="size" \
+        viewBox="0 0 16 16">\
+          <path :fill="color" d="M11 7h-6l3-4z" />\
+          <path :fill="color" d="M5 9h6l-3 4z" />\
+      </svg> \
+    </button>',
 });
 
 new Vue({
@@ -98,9 +107,6 @@ new Vue({
     },
     recentClass: function() {
       return {
-        'table__cell': true,
-        'table__cell--points': true,
-        'table__cell--small': true,
         'sort': true,
         'sort--desc': this.order === -1,
         'sort--asc': this.order === 1,
@@ -109,9 +115,6 @@ new Vue({
     },
     alltimeClass: function() {
       return {
-        'table__cell': true,
-        'table__cell--points': true,
-        'table__cell--small': true,
         'sort': true,
         'sort--desc': this.order === -1,
         'sort--asc': this.order === 1,

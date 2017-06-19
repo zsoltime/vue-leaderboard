@@ -128,7 +128,13 @@ button:focus {
 }
 
 .sort {
+  align-items: center;
+  background-color: transparent;
+  border: 0;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .sort--active {

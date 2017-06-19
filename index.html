@@ -24,13 +24,16 @@
         <div class="table v-cloak-hidden" v-else>
           <div class="table__header table__header--sticky">
             <div class="table__cell table__cell--user">Camper</div>
-            <div @click="sort('recent')" :class="recentClass">
-              Past 30 Days' Points
-              <sort-button></sort-button>
+            <div
+              @click="sort('recent')"
+              class="table__cell table__cell--points table__cell--small"
+            >
+              <sort-button :class-names="recentClass">Past 30 Days' Points</sort-button>
             </div>
-            <div @click="sort('alltime')" :class="alltimeClass">
-              All-Time Points
-              <sort-button></sort-button>
+            <div
+              @click="sort('alltime')"
+              class="table__cell table__cell--points table__cell--small">
+              <sort-button :class-names="alltimeClass">All-Time Points</sort-button>
             </div>
           </div>
           <div class="table__body">
