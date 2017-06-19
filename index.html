@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vue.js Leaderboard</title>
+  <meta name="description" content="Free Code Camp leaderboard using Vue.js">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page" id="app">
+    <header class="page__header">
+      <h1 class="page__title">FCC Leaderboard</h1>
+    </header>
+    <section class="board">
+      <div class="container container--narrow" v-cloak>
+        <div class="loader v-cloak-visible">
+          <p>Let me load some data :)</p>
+        </div>
+        <div class="message message--error v-cloak-hidden" v-if="error">
+          Error: {{error}}
+        </div>
+        <div class="table v-cloak-hidden" v-else>
+          <div class="table__header table__header--sticky">
+            <div class="table__cell table__cell--user">Camper</div>
+            <div @click="sort('recent')" :class="recentClass">
+              Past 30 Days' Points
+              <sort-button></sort-button>
+            </div>
+            <div @click="sort('alltime')" :class="alltimeClass">
+              All-Time Points
+              <sort-button></sort-button>
+            </div>
+          </div>
+          <div class="table__body">
+            <div
+              v-for="(camper, i) in sortedList"
+              :key="camper.username"
+              class="table__row"
+            >
+              <div class="table__cell table__cell--user">
+                <div class="user__avatar">
+                  <img :src="camper.img" />
+                </div>
+                <button class="user__name" @click="showUserCard(i)">
+                  {{camper.username}}
+                </button>
+              </div>
+              <div class="table__cell table__cell--points">{{camper.recent | number}}</div>
+              <div class="table__cell table__cell--points">{{camper.alltime | number}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="page__footer">
+      <div class="container">
+        <p class="copyright">Made by <a href="https://zsolti.co" title="Zsolt Meszaros">Zsolt Meszaros</a> as part of his <a href="https://github.com/zsoltime/vue-basic-challenge" title="Vue Challenge">Vue Challenge</a> - Day&nbsp;#1</p>
+      </div>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
