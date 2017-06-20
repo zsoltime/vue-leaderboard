@@ -68,7 +68,11 @@
           <img :src="campers[activeCamper].img" />
         </div>
         <h3 class="user__name user__name--large">
-          {{campers[activeCamper].username}}
+          <a
+            :href="fccLink"
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+          >{{campers[activeCamper].username}}</a>
         </h3>
         <div class="user__ranks">
           <div class="rank">

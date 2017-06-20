@@ -175,6 +175,9 @@ new Vue({
         'sort--active': this.sortBy === 'alltime'
       };
     },
+    fccLink: function() {
+      return `https://www.freecodecamp.com/${this.campers[this.activeCamper].username}`;
+    }
   },
   filters: {
     number: function(num) {
