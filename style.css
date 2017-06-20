@@ -162,6 +162,12 @@ button:focus {
   z-index: 9;
 }
 
+.user__avatar--large {
+  height: 128px;
+  margin-bottom: 1rem;
+  width: 128px;
+}
+
 .user__avatar img {
   height: 100%;
   object-fit: cover;
@@ -177,6 +183,56 @@ button:focus {
 .user__name {
   background-color: transparent;
   border: 0;
+  font-weight: 400;
+  margin: 0 auto 1rem;
+}
+
+.user__name--no-margin {
+  margin: 0;
+}
+
+.user__name--large {
+  font-size: 1.25rem;
+}
+
+.user {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.user__ranks {
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rank {
+  flex-basis: 50%;
+  text-align: center;
+}
+
+.rank__title {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 1rem auto;
+}
+
+.rank__points {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.375rem;
+}
+
+.rank__label {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 0.75rem;
+  text-transform: uppercase;
 }
 
 .copyright {
@@ -207,6 +263,76 @@ button:focus {
   text-align: center;
 }
 
+.modal,
+.modal__overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99;
+}
+
+.modal {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.modal__overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: opacity .3s ease-in-out;
+}
+
+.modal__wrapper {
+  align-items: center;
+  background-color: #eeeff0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 480px;
+  padding: 1rem;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.75,-0.15, 0.5, 2);
+  transition-delay: 0.1s;
+  width: 90%;
+  z-index: 100;
+}
+
+.modal__close {
+  align-items: baseline;
+  background-color: #eeeff0;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  font-size: 2rem;
+  height: 2.5rem;
+  justify-content: center;
+  line-height: 1rem;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: -0.75rem;
+  top: -0.75rem;
+  transition: transform .2s cubic-bezier(0.75,-0.15, 0.5, 2);
+  width: 2.5rem;
+}
+
+.modal__close:hover {
+  transform: scale(1.25);
+}
+
+.modal-enter .modal__overlay,
+.modal-leave-to .modal__overlay {
+  opacity: 0;
+}
+
+.modal-enter .modal__wrapper,
+.modal-leave-to .modal__wrapper {
+  opacity: 0;
+  transform: scale(0.75);
+}
+
 [v-cloak] .v-cloak-visible {
   display: block;
 }
@@ -231,5 +357,9 @@ button:focus {
 
   .user__avatar {
     margin-right: 1rem;
+  }
+
+  .user__avatar--large {
+    margin-right: 0;
   }
 }

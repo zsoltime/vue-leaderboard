@@ -46,7 +46,7 @@
                 <div class="user__avatar">
                   <img :src="camper.img" />
                 </div>
-                <button class="user__name" @click="showUserCard(i)">
+                <button class="user__name user__name--no-margin" @click="showUserCard(i)">
                   {{camper.username}}
                 </button>
               </div>
@@ -62,6 +62,34 @@
         <p class="copyright">Made by <a href="https://zsolti.co" title="Zsolt Meszaros">Zsolt Meszaros</a> as part of his <a href="https://github.com/zsoltime/vue-basic-challenge" title="Vue Challenge">Vue Challenge</a> - Day&nbsp;#1</p>
       </div>
     </footer>
+    <modal v-if="showModal" @close="showModal = false">
+      <div class="user">
+        <div class="user__avatar user__avatar--large">
+          <img :src="campers[activeCamper].img" />
+        </div>
+        <h3 class="user__name user__name--large">
+          {{campers[activeCamper].username}}
+        </h3>
+        <div class="user__ranks">
+          <div class="rank">
+            <h4 class="rank__title">Alltime</h4>
+            <rank>{{campers[activeCamper].rank.alltime | number}}</rank>
+            <div class="rank__points">
+              {{campers[activeCamper].alltime | number}}
+              <span class="rank__label">points</span>
+            </div>
+          </div>
+          <div class="rank">
+            <h4 class="rank__title">Recent</h4>
+            <rank>{{campers[activeCamper].rank.recent | number}}</rank>
+            <div class="rank__points">
+              {{campers[activeCamper].recent | number}}
+              <span class="rank__label">points</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="index.js"></script>
