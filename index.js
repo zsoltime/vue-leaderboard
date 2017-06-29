@@ -191,7 +191,9 @@ new Vue({
     sortedList: function() {
       return this.campers.sort((a, b) => {
         if (this.sortBy === 'username') {
-          return a.username.toUpperCase() > b.username.toUpperCase() ? 1 : -1;
+          return a.username.toUpperCase() > b.username.toUpperCase()
+            ? this.order
+            : this.order * -1;
         }
 
         if (this.order === 1) {
