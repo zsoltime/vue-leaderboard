@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Vue.js Leaderboard</title>
-  <meta name="description" content="Free Code Camp leaderboard using Vue.js">
+  <title>Vue.js Leaderboard by Zsolt Meszaros | Vue.js Challenge</title>
+  <meta name="description" content="Check out my Free Code Camp leaderboard built with Vue.js during my Vue challenge.">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -21,39 +21,81 @@
         <div class="message message--error v-cloak-hidden" v-if="error">
           Error: {{error}}
         </div>
-        <div class="table v-cloak-hidden" v-else>
-          <div class="table__header table__header--sticky">
-            <div class="table__cell table__cell--user">Camper</div>
+        <div class="table v-cloak-hidden" role="grid" v-else>
+          <div
+            class="table__header table__header--sticky"
+            role="row toolbar"
+            aria-label="Sorting options"
+            aria-controls="sortable"
+          >
             <div
-              @click="sort('recent')"
+              class="table__cell table__cell--user"
+              role="columnheader"
+              :aria-sort="sortBy === 'username' ? sortOrder : null"
+            ><sort-button
+              :class-names="camperClass"
+              aria-label="Sort by username"
+              @click="sort('username')"
+            >Camper</sort-button></div>
+            <div
               class="table__cell table__cell--points table__cell--small"
+              role="columnheader"
+              :aria-sort="sortBy === 'recent' ? sortOrder : null"
             >
-              <sort-button :class-names="recentClass">Past 30 Days' Points</sort-button>
+              <sort-button
+                :class-names="recentClass"
+                aria-label="Sort by past 30 days points"
+                @click="sort('recent')"
+              >Past 30 Days' Points</sort-button>
             </div>
             <div
-              @click="sort('alltime')"
-              class="table__cell table__cell--points table__cell--small">
-              <sort-button :class-names="alltimeClass">All-Time Points</sort-button>
+              class="table__cell table__cell--points table__cell--small"
+              role="columnheader"
+              :aria-sort="sortBy === 'alltime' ? sortOrder : null"
+            >
+              <sort-button
+                :class-names="alltimeClass"
+                aria-label="Sort by alltime points"
+                @click="sort('alltime')"
+              >All-Time Points</sort-button>
             </div>
           </div>
-          <div class="table__body">
+          <transition-group
+            class="table__body"
+            id="sortable"
+            name="list"
+            tag="div"
+            role="rowgroup"
+            v-on:before-enter="beforeEnter"
+            v-on:enter="enter"
+          >
             <div
               v-for="(camper, i) in sortedList"
               :key="camper.username"
+              :data-index="i"
               class="table__row"
+              role="row"
             >
-              <div class="table__cell table__cell--user">
+              <div class="table__cell table__cell--user" role="gridcell">
                 <div class="user__avatar">
-                  <img :src="camper.img" />
+                  <img :src="camper.img" alt="" />
                 </div>
-                <button class="user__name user__name--no-margin" @click="showUserCard(i)">
+                <button
+                  class="user__name user__name--no-margin"
+                  type="button"
+                  @click="showUserCard(i)"
+                >
                   {{camper.username}}
                 </button>
               </div>
-              <div class="table__cell table__cell--points">{{camper.recent | number}}</div>
-              <div class="table__cell table__cell--points">{{camper.alltime | number}}</div>
+              <div class="table__cell table__cell--points" role="gridcell">
+                {{camper.recent | number}}
+              </div>
+              <div class="table__cell table__cell--points" role="gridcell">
+                {{camper.alltime | number}}
+              </div>
             </div>
-          </div>
+          </transition-group>
         </div>
       </div>
     </section>
@@ -62,7 +104,11 @@
         <p class="copyright">Made by <a href="https://zsolti.co" title="Zsolt Meszaros">Zsolt Meszaros</a> as part of his <a href="https://github.com/zsoltime/vue-basic-challenge" title="Vue Challenge">Vue Challenge</a> - Day&nbsp;#1</p>
       </div>
     </footer>
-    <modal v-if="showModal" @close="showModal = false">
+    <modal
+      v-if="showModal"
+      aria-label="User card"
+      @close="showModal = false"
+    >
       <div class="user">
         <div class="user__avatar user__avatar--large">
           <img :src="campers[activeCamper].img" />
@@ -70,6 +116,8 @@
         <h3 class="user__name user__name--large">
           <a
             :href="fccLink"
+            :title="fccLinkTitle"
+            :aria-label="fccLinkTitle"
             target="_blank"
             rel="nofollow noopener noreferrer"
           >{{campers[activeCamper].username}}</a>
